@@ -1,0 +1,4 @@
+#!/command/with-contenv sh
+
+echo "Starting Shairport Sync"
+exec /usr/local/bin/shairport-sync $EXTRA_ARGS

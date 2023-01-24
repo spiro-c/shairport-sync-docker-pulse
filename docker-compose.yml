@@ -1,0 +1,33 @@
+# Example docker compose config.
+version: "3.9"
+services:
+  shairport-sync:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+#    image: mikebrady/shairport-sync:development
+    network_mode: host
+    volumes:
+      - type: bind
+        source: ${XDG_RUNTIME_DIR}/pulse/native
+        target: ${XDG_RUNTIME_DIR}/pulse/native
+      - type: bind
+        source: ~/.config/pulse/cookie
+        target: /root/.config/pulse/cookie
+        read_only: true
+    environment:
+      - S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0
+      - EXTRA_ARGS=-a DenSystem
+      - PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native
+#      - PULSE_SERVER=unix:/root/audio/pulseaudio.socket
+#      - PULSE_SERVER=tcp:127.0.0.1
+#    restart: unless-stopped
+    devices:
+      - "/dev/snd"
+    # volumes:
+    #   - ./volumes/shairport-sync/shairport-sync.conf:/etc/shairport-sync.conf # Customised Shairport Sync configuration file.
+    entrypoint: ["/init"]
+    logging:
+      options:
+        max-size: "200k"
+        max-file: "10"

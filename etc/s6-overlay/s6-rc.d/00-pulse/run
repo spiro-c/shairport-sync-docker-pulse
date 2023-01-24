@@ -1,0 +1,8 @@
+#!/command/with-contenv sh
+
+if [ ! -n "$PULSE_SERVER" ]
+then
+    echo "PULSE_SERVER env not set or NULL starting with alsa"
+else
+apk --no-cache add alsa-plugins-pulse
+fi
