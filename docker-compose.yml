@@ -22,8 +22,8 @@ services:
 #      - PULSE_SERVER=unix:/root/audio/pulseaudio.socket
 #      - PULSE_SERVER=tcp:127.0.0.1
 #    restart: unless-stopped
-    devices:
-      - "/dev/snd"
+#    devices:
+#      - "/dev/snd"
     # volumes:
     #   - ./volumes/shairport-sync/shairport-sync.conf:/etc/shairport-sync.conf # Customised Shairport Sync configuration file.
     entrypoint: ["/init"]
